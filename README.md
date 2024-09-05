@@ -10,7 +10,7 @@ My project is a backend service built with Node.js and Express that offers a bas
 
 ## How to Run
 
-Clone the repository:https://github.com/JParker3110/snacks-api 
+Clone the repository:https://github.com/JParker3110/snacks-api.git
 
 Navigate to the project directory: cd [project-directory]
 
@@ -37,3 +37,5 @@ Open your browser and navigate to http://localhost:4000 to see the app in action
 * CORS middleware
 
 * Error handling
+
+* Supabase
