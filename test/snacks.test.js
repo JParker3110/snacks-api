@@ -3,14 +3,14 @@ require("dotenv").config();
 
 // tests/snacks.test.js
 const request = require('supertest');
-const app = require('../index'); // Import your Express app
+const app = require('../index'); 
 
 describe('Snacks API', () => {
   // Test GET /snacks
   it('should fetch all snacks', async () => {
     const response = await request(app).get('/snacks');
     expect(response.statusCode).toBe(200);
-    expect(response.body).toHaveProperty('snacks'); // Adjust based on your response structure
+    expect(response.body).toHaveProperty('snacks'); 
   });
 
   // Test POST /snacks

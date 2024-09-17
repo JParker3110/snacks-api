@@ -1,17 +1,16 @@
-require('dotenv').config(); // Load environment variables from .env file
+require('dotenv').config(); 
 const express = require('express');
 const cors = require('cors');
-const axiosInstance = require('./supabaseInstance'); // Import the configured Axios instance
+const axiosInstance = require('./supabaseInstance'); 
 const app = express();
-const snacksRoutes = require("./api/routes/snacksRoutes"); // Import your snacks routes
+const snacksRoutes = require("./api/routes/snacksRoutes"); 
 
 // Define PORT or default to 4000
 const PORT = process.env.PORT || 4000;
 
 // Middleware for API Key Authentication
 const apiKeyMiddleware = (req, res, next) => {
-  const apiKey = req.headers['supabase_key']; // Ensure this matches the header sent from Postman
-  console.log('Received API Key:', apiKey); // Debug line
+  const apiKey = req.headers['SUPABASE_KEY']; // Ensure this matches the header sent from Postman
   if (apiKey && apiKey === process.env.SUPABASE_KEY) {
     next();
   } else {
@@ -21,8 +20,8 @@ const apiKeyMiddleware = (req, res, next) => {
 
 // Middleware and other configurations
 app.use(express.json());
-app.use(cors()); // Enable CORS if needed
-app.use(apiKeyMiddleware); // Apply API key middleware globally
+app.use(cors()); 
+app.use(apiKeyMiddleware); 
 
 // app.get('/snacks', (req, res) => {
 //   res.send('This is a secure route');
