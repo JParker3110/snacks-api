@@ -3,7 +3,7 @@ require("dotenv").config();
 
 // tests/snacks.test.js
 const request = require('supertest');
-const app = require('../app'); // Import your Express app
+const app = require('../index'); // Import your Express app
 
 describe('Snacks API', () => {
   // Test GET /snacks
@@ -36,3 +36,5 @@ describe('Snacks API', () => {
     expect(response.statusCode).toBe(204);
   });
 });
+
+

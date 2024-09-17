@@ -8,10 +8,9 @@ const snacksRoutes = require("./api/routes/snacksRoutes"); // Import your snacks
 // Define PORT or default to 4000
 const PORT = process.env.PORT || 4000;
 
-
 // Middleware for API Key Authentication
 const apiKeyMiddleware = (req, res, next) => {
-  const apiKey = req.headers['x-api-key'];
+  const apiKey = req.headers['supabase_key']; // Ensure this matches the header sent from Postman
   console.log('Received API Key:', apiKey); // Debug line
   if (apiKey && apiKey === process.env.SUPABASE_KEY) {
     next();
@@ -20,31 +19,20 @@ const apiKeyMiddleware = (req, res, next) => {
   }
 };
 
-
 // Middleware and other configurations
 app.use(express.json());
 app.use(cors()); // Enable CORS if needed
 app.use(apiKeyMiddleware); // Apply API key middleware globally
 
-app.get('/snacks', (req, res) => {
-  res.send('This is a secure route');
-});
+// app.get('/snacks', (req, res) => {
+//   res.send('This is a secure route');
+// });
 
 // Use the snacks routes
 app.use('/snacks', snacksRoutes);
 
 // Route to fetch all snacks
 app.get('/', async (req, res) => {
-  try {
-    const response = await axiosInstance.get('/snacks?order=id.asc');
-    res.json(response.data);
-  } catch (error) {
-    res.status(error.response?.status || 500).json({ error: 'An error occurred' });
-  }
-});
-
-// Route to fetch all snacks - ensure correct endpoint usage
-app.get('/snacks', async (req, res) => {
   try {
     const response = await axiosInstance.get('/snacks?order=id.asc');
     res.json(response.data);
@@ -123,8 +111,8 @@ app.delete('/snacks/:id', async (req, res) => {
 
 // Global error handler
 app.use((err, req, res, next) => {
-  console.error('Global Error:', err.stack);
-  res.status(500).json({ message: 'Something went wrong!' });
+  console.error('Global Error:', err);
+  res.status(err.status || 500).json({ message: err.message || 'Something went wrong!' });
 });
 
 // Start the server
